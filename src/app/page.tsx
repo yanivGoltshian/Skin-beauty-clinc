@@ -31,8 +31,26 @@ export default function Home() {
       <section className="relative overflow-hidden hero-glow text-white">
         <div className="absolute inset-0">
           <Image src={asset(homepage.hero.image)} alt="סקין ביוטי קליניק – קליניקת אסתטיקה רפואית ביבנה" fill className="object-cover" priority />
-          <div className="absolute inset-0 bg-gradient-to-l from-ink via-ink/85 to-ink/35" />
-          <div className="absolute inset-0 hero-glow opacity-55 mix-blend-multiply" />
+          {/* vertical clinic video, side-by-side with the building image */}
+          <div className="absolute inset-y-0 left-0 w-1/2 sm:w-[44%] lg:w-1/3 overflow-hidden">
+            <video
+              className="h-full w-full object-cover"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              poster={asset("/videos/clinic-hero-poster.jpg")}
+            >
+              <source src={asset("/videos/clinic-hero.mp4")} type="video/mp4" />
+            </video>
+            {/* feather the inner edge of the video into the image */}
+            <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-ink-2/70 to-transparent" />
+          </div>
+          {/* warm bronze mask — brighter than black, deepest behind the text */}
+          <div className="absolute inset-0 bg-gradient-to-r from-ink-2/10 via-ink-2/45 to-ink-2/85" />
+          <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/35 via-transparent to-transparent" />
+          <div className="absolute inset-0 hero-glow opacity-35 mix-blend-soft-light" />
         </div>
         <div className="relative mx-auto max-w-6xl px-4 py-20 sm:py-28">
           <div className="max-w-2xl animate-fade-up">
