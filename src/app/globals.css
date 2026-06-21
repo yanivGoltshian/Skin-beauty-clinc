@@ -1,0 +1,147 @@
+@import "tailwindcss";
+
+:root {
+  /* warm, premium base */
+  --background: #faf6ef;
+  --cream: #faf6ef;
+  --cream-2: #f3ece0;
+  --foreground: #211c1a;
+  --ink: #1b1715;
+  --ink-2: #2c2522;
+
+  /* brand — bronze / champagne / rose */
+  --brand: #b0855f;
+  --brand-dark: #8c6748;
+  --eco: #c08f86;
+  --eco-dark: #a06c63;
+  --gold: #c6a86a;
+  --gold-dark: #a6863f;
+
+  --muted: #6e655f;
+  --surface: #ffffff;
+  --border: #e7ddcd;
+
+  /* treatment-group tones */
+  --cat-carry: #c0a062;
+  --cat-food: #b98e7b;
+  --cat-rolls: #a57a5a;
+  --cat-branded: #8c7a66;
+  --cat-premium: #c6a86a;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-cream: var(--cream);
+  --color-cream-2: var(--cream-2);
+  --color-foreground: var(--foreground);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-brand: var(--brand);
+  --color-brand-dark: var(--brand-dark);
+  --color-eco: var(--eco);
+  --color-eco-dark: var(--eco-dark);
+  --color-gold: var(--gold);
+  --color-gold-dark: var(--gold-dark);
+  --color-muted: var(--muted);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --font-sans: var(--font-heebo);
+  --font-display: var(--font-frank);
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-heebo), "Segoe UI", Arial, sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-frank), Georgia, serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* rich colorful hero glow */
+.hero-glow {
+  background:
+    radial-gradient(38rem 38rem at 78% 18%, rgba(198, 168, 106, 0.40), transparent 60%),
+    radial-gradient(34rem 34rem at 12% 82%, rgba(192, 143, 134, 0.32), transparent 60%),
+    radial-gradient(30rem 30rem at 50% 50%, rgba(176, 133, 95, 0.22), transparent 65%),
+    linear-gradient(160deg, #1b1513 0%, #2c2420 100%);
+}
+
+.gold-rule {
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, var(--brand), var(--gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.card-elegant {
+  box-shadow: 0 1px 2px rgba(33, 28, 26, 0.04), 0 12px 30px -18px rgba(33, 28, 26, 0.25);
+}
+
+@keyframes floaty {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.animate-floaty { animation: floaty 4s ease-in-out infinite; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up { animation: fadeUp 0.7s ease-out both; }
+
+/* 3D rotating product cube */
+.cube-scene {
+  --cube-size: 230px;
+  --cube-half: 115px;
+  width: var(--cube-size);
+  height: var(--cube-size);
+  margin-inline: auto;
+  perspective: 1200px;
+}
+.cube {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  animation: cube-spin 18s linear infinite;
+}
+.cube-face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 16px;
+  border: 1px solid rgba(201, 160, 78, 0.55);
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.22);
+  background: var(--ink);
+}
+.cube-face::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.12), transparent 55%);
+  pointer-events: none;
+}
+@keyframes cube-spin {
+  from { transform: rotateX(-18deg) rotateY(0deg); }
+  to { transform: rotateX(-18deg) rotateY(360deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cube { animation: none; transform: rotateX(-18deg) rotateY(-25deg); }
+}
