@@ -1,13 +1,14 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import { site } from "@/lib/data";
 import PageHero from "@/components/PageHero";
 import { asset } from "@/lib/asset";
+import { seo, pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "אודות",
-  description: "סקין ביוטי קליניק – מרפאת אסתטיקה רפואית ביבנה. טיפולי בוטוקס, מילוי, לייזר, PRP וטיפולי פנים, עם יחס אישי ובדיקת התאמה לפני כל טיפול.",
-};
+export const metadata = pageMetadata({
+  title: seo.pages.about.title,
+  description: seo.pages.about.description,
+  path: "/about/",
+});
 
 const values = [
   { title: "אסתטיקה רפואית", text: "טיפולים מתקדמים בליווי מקצועי, עם דגש על תוצאה טבעית." },
@@ -21,13 +22,13 @@ export default function AboutPage() {
     <>
       <PageHero
         eyebrow="מי אנחנו"
-        title="סקין ביוטי קליניק"
+        title={seo.pages.about.h1}
         subtitle="מרפאת אסתטיקה רפואית ביבנה – יופי טבעי, בידיים מקצועיות."
       />
 
       <section className="mx-auto max-w-6xl px-4 py-14 grid gap-10 lg:grid-cols-2 items-center">
         <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-xl">
-          <Image src={asset("/images/banners/interior.jpg")} alt="המרפאה שלנו" fill className="object-cover" />
+          <Image src={asset("/images/banners/interior.jpg")} alt="חלל הטיפולים בסקין ביוטי קליניק יבנה" fill className="object-cover" />
         </div>
         <div>
           <h2 className="text-3xl font-black">יופי טבעי, באחריות רפואית</h2>

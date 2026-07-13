@@ -6,7 +6,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppFab from "@/components/WhatsAppFab";
 import JsonLd from "@/components/JsonLd";
-import { organizationLd, websiteLd } from "@/lib/structured-data";
+import { siteGraph } from "@/lib/structured-data";
+import { seo, OG_IMAGE, absoluteUrl } from "@/lib/seo";
 
 const heebo = Heebo({
   subsets: ["hebrew", "latin"],
@@ -26,46 +27,35 @@ const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
 export const metadata: Metadata = {
   metadataBase: new URL(`${SITE_URL}${BASE_PATH}/`),
   title: {
-    default: `${site.name} – ${site.tagline}`,
+    default: seo.pages.home.title,
     template: `%s | ${site.name}`,
   },
-  description: site.description,
-  keywords: [
-    "סקין ביוטי קליניק",
-    "אסתטיקה רפואית",
-    "בוטוקס יבנה",
-    "מילוי שפתיים",
-    "חומצה היאלורונית",
-    "עיצוב אף ללא ניתוח",
-    "הסרת שיער בלייזר",
-    "PRP לשיער",
-    "טיפולי פנים",
-    "מרפאת יופי יבנה",
-  ],
+  description: seo.pages.home.description,
+  keywords: seo.keywords,
   openGraph: {
-    title: `${site.name} – ${site.tagline}`,
-    description: site.description,
+    title: seo.pages.home.title,
+    description: seo.pages.home.description,
     type: "website",
     locale: "he_IL",
     siteName: site.name,
-    url: `${SITE_URL}${BASE_PATH}/`,
+    url: absoluteUrl("/"),
     images: [
       {
-        url: `${SITE_URL}${BASE_PATH}/og-image.jpg`,
+        url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: `${site.name} – ${site.tagline}`,
+        alt: seo.pages.home.title,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.name} – ${site.tagline}`,
-    description: site.description,
-    images: [`${SITE_URL}${BASE_PATH}/og-image.jpg`],
+    title: seo.pages.home.title,
+    description: seo.pages.home.description,
+    images: [OG_IMAGE],
   },
   alternates: {
-    canonical: "/",
+    canonical: absoluteUrl("/"),
   },
   robots: {
     index: true,
@@ -86,7 +76,7 @@ export default function RootLayout({
   return (
     <html lang="he" dir="rtl">
       <body className={`${heebo.variable} ${frank.variable} antialiased`}>
-        <JsonLd data={[organizationLd(), websiteLd()]} />
+        <JsonLd data={siteGraph()} />
         <Header />
         <main className="min-h-screen">{children}</main>
         <Footer />
