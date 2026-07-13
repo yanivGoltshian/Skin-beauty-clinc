@@ -80,7 +80,7 @@ export default function Home() {
       </section>
 
       {/* ADVANTAGES */}
-      <section className="mx-auto max-w-6xl px-4 -mt-10 relative z-10">
+      <section className="mx-auto max-w-6xl px-4 mt-10 relative z-10">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {homepage.advantages.map((a) => (
             <div key={a.title} className="rounded-2xl border border-border border-t-2 border-t-gold bg-surface p-5 card-elegant">
