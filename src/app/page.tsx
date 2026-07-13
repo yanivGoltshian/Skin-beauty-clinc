@@ -199,12 +199,12 @@ export default function Home() {
           <Link href="/products/rf/" className="font-semibold text-gold-dark hover:underline">טיפולי RF לפנים</Link>{" "}
           ו<Link href="/category/injectables/" className="font-semibold text-gold-dark hover:underline">הזרקות אסתטיות</Link> – כל טיפולי היופי במקום אחד ביבנה.
         </p>
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="mt-10 flex flex-wrap justify-center gap-4">
           {categories.map((c) => (
             <Link
               key={c.id}
               href={`/category/${c.slug}/`}
-              className="group rounded-2xl border border-border border-t-4 bg-surface p-6 text-center card-elegant hover:-translate-y-1 hover:shadow-lg transition"
+              className="group w-full sm:w-[calc(50%-0.5rem)] lg:w-[calc(25%-0.75rem)] rounded-2xl border border-border border-t-4 bg-surface p-6 text-center card-elegant hover:-translate-y-1 hover:shadow-lg transition"
               style={{ borderTopColor: c.color }}
             >
               <h3 className="font-display text-lg font-bold transition" style={{ color: c.color }}>{c.name}</h3>
