@@ -1,12 +1,13 @@
-import type { Metadata } from "next";
 import { site, telLink, whatsappLink } from "@/lib/data";
 import LeadForm from "@/components/LeadForm";
 import PageHero from "@/components/PageHero";
+import { seo, pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "צרו קשר",
-  description: "צרו קשר עם סקין ביוטי קליניק ביבנה לתיאום תור או בדיקת התאמה. טלפון, וואטסאפ וניווט. הקישון 5, יבנה.",
-};
+export const metadata = pageMetadata({
+  title: seo.pages.contact.title,
+  description: seo.pages.contact.description,
+  path: "/contact/",
+});
 
 export default function ContactPage() {
   const cards = [
@@ -20,7 +21,7 @@ export default function ContactPage() {
     <>
       <PageHero
         eyebrow="דברו איתנו"
-        title="צרו קשר"
+        title={seo.pages.contact.h1}
         subtitle="נשמח לעמוד לרשותכם ולתאם תור או בדיקת התאמה. מענה אישי בשעות הפעילות."
       />
 

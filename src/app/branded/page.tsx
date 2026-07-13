@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { homepage, brandedProducts } from "@/lib/data";
@@ -6,11 +5,13 @@ import ProductCard from "@/components/ProductCard";
 import LeadForm from "@/components/LeadForm";
 import PageHero from "@/components/PageHero";
 import { asset } from "@/lib/asset";
+import { seo, pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "מבצעי השקה",
-  description: "מבצעי השקה בסקין ביוטי קליניק – טיפולי בוטוקס, עיצוב אף, RF, לייזר ו-PRP במחירי היכרות מיוחדים. מספר המקומות מוגבל.",
-};
+export const metadata = pageMetadata({
+  title: seo.pages.branded.title,
+  description: seo.pages.branded.description,
+  path: "/branded/",
+});
 
 const steps = [
   { n: "1", title: "קובעים בדיקת התאמה", text: "פוגשים אותנו לאבחון אישי והתאמת הטיפול המדויק עבורכם." },
@@ -25,7 +26,7 @@ export default function BrandedPage() {
     <>
       <PageHero
         eyebrow="מחירי היכרות"
-        title={homepage.brandedPitch.title}
+        title={seo.pages.branded.h1}
         subtitle={homepage.brandedPitch.text}
       />
 

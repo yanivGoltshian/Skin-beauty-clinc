@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -6,8 +5,10 @@ import { products, getProduct, categories, telLink, whatsappLink, site } from "@
 import LeadForm from "@/components/LeadForm";
 import ProductCard from "@/components/ProductCard";
 import JsonLd from "@/components/JsonLd";
+import Faq from "@/components/Faq";
 import { asset } from "@/lib/asset";
-import { productLd, breadcrumbLd } from "@/lib/structured-data";
+import { serviceLd, breadcrumbLd, faqLd } from "@/lib/structured-data";
+import { seo, pageMetadata } from "@/lib/seo";
 
 export function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
@@ -17,14 +18,17 @@ export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string }>;
-}): Promise<Metadata> {
+}) {
   const { slug } = await params;
   const product = getProduct(slug);
   if (!product) return {};
-  return {
-    title: product.name,
-    description: product.shortDesc,
-  };
+  const s = seo.treatments[slug];
+  return pageMetadata({
+    title: s?.title ?? product.name,
+    description: s?.description ?? product.shortDesc,
+    path: `/products/${slug}/`,
+    image: product.image,
+  });
 }
 
 export default async function ProductPage({
@@ -36,6 +40,9 @@ export default async function ProductPage({
   const product = getProduct(slug);
   if (!product) notFound();
 
+  const s = seo.treatments[slug];
+  const faq = s?.faq ?? [];
+
   const productCats = categories.filter((c) => product.categoryIds.includes(c.id));
   const related = products
     .filter((p) => p.id !== product.id && p.categoryIds.some((c) => product.categoryIds.includes(c)))
@@ -45,12 +52,13 @@ export default async function ProductPage({
     <>
       <JsonLd
         data={[
-          productLd(product),
+          serviceLd(product),
           breadcrumbLd([
             { name: "בית", url: "/" },
             { name: "טיפולים", url: "/products/" },
             { name: product.name, url: `/products/${product.slug}/` },
           ]),
+          ...(faq.length ? [faqLd(faq)] : []),
         ]}
       />
       <div className="mx-auto max-w-6xl px-4 py-8">
@@ -64,7 +72,7 @@ export default async function ProductPage({
 
         <div className="grid gap-10 lg:grid-cols-2">
           <div className="relative aspect-square rounded-3xl overflow-hidden bg-surface shadow-sm">
-            <Image src={asset(product.image)} alt={product.name} fill className="object-cover" priority />
+            <Image src={asset(product.image)} alt={`${product.name} – סקין ביוטי קליניק יבנה`} fill className="object-cover" priority />
             {product.branded && (
               <span className="absolute top-4 right-4 rounded-full bg-eco px-3 py-1.5 text-sm font-semibold text-white">
                 מבצע השקה
@@ -80,7 +88,10 @@ export default async function ProductPage({
                 </Link>
               ))}
             </div>
-            <h1 className="mt-3 text-3xl sm:text-4xl font-black">{product.name}</h1>
+            <h1 className="mt-3 text-3xl sm:text-4xl font-black">{s?.h1 ?? product.name}</h1>
+            {s?.intro && (
+              <p className="mt-4 text-foreground/90 font-medium leading-relaxed">{s.intro}</p>
+            )}
             <p className="mt-4 text-muted leading-relaxed">{product.description}</p>
 
             <div className="mt-6 grid sm:grid-cols-2 gap-6">
@@ -136,6 +147,8 @@ export default async function ProductPage({
             </div>
           )}
         </div>
+
+        {faq.length > 0 && <Faq items={faq} className="mt-16" />}
       </div>
     </>
   );

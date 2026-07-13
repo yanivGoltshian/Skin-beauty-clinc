@@ -6,6 +6,17 @@ import LeadForm from "@/components/LeadForm";
 import ProductCube from "@/components/ProductCube";
 import GallerySlideshow from "@/components/GallerySlideshow";
 import { asset } from "@/lib/asset";
+import Faq from "@/components/Faq";
+import JsonLd from "@/components/JsonLd";
+import { faqLd } from "@/lib/structured-data";
+import { seo, pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({
+  title: seo.pages.home.title,
+  description: seo.pages.home.description,
+  path: "/",
+  absoluteTitle: true,
+});
 
 const galleryImages = [
   "/images/gallery/work-jawline.jpg",
@@ -58,10 +69,11 @@ export default function Home() {
               {homepage.hero.eyebrow}
             </span>
             <h1 className="mt-5 font-display text-4xl sm:text-5xl lg:text-6xl font-black leading-tight">
-              {homepage.hero.title}
+              {seo.pages.home.h1}
             </h1>
             <div className="mt-5 h-0.5 w-24 gold-rule rounded-full" />
-            <p className="mt-5 text-lg text-white/80 leading-relaxed">{homepage.hero.subtitle}</p>
+            <p className="mt-4 font-display text-xl sm:text-2xl font-bold text-gold">{homepage.hero.title}</p>
+            <p className="mt-4 text-lg text-white/80 leading-relaxed">{homepage.hero.subtitle}</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href={homepage.hero.ctaPrimary.href} className="rounded-full bg-eco px-7 py-3.5 font-semibold text-white shadow-lg hover:bg-eco-dark transition">
                 {homepage.hero.ctaPrimary.label}
@@ -157,7 +169,7 @@ export default function Home() {
                 className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-surface card-elegant transition hover:-translate-y-1 hover:shadow-xl"
               >
                 <div className="relative aspect-[16/10] overflow-hidden bg-cream">
-                  <Image src={asset(p.image)} alt={p.name} fill className="object-cover transition duration-500 group-hover:scale-105" />
+                  <Image src={asset(p.image)} alt={`${p.name} – סקין ביוטי קליניק יבנה`} fill className="object-cover transition duration-500 group-hover:scale-105" />
                 </div>
                 <div className="p-5 flex flex-col flex-1">
                   <h3 className="font-display text-xl font-bold group-hover:text-brand transition">{p.name}</h3>
@@ -176,6 +188,14 @@ export default function Home() {
           <h2 className="font-display text-3xl sm:text-4xl font-black">תחומי הטיפול שלנו</h2>
           <p className="mt-3 text-muted">מגוון רחב של טיפולי אסתטיקה רפואית – לכל מטרה ולכל סוג עור.</p>
         </div>
+        <p className="mt-6 mx-auto max-w-3xl text-center text-muted leading-relaxed">
+          קליניקת היופי שלנו ביבנה מתמחה ב
+          <Link href="/products/botox/" className="font-semibold text-gold-dark hover:underline">בוטוקס</Link>,{" "}
+          <Link href="/products/lip-filler/" className="font-semibold text-gold-dark hover:underline">מילוי שפתיים</Link>,{" "}
+          <Link href="/category/laser-hair/" className="font-semibold text-gold-dark hover:underline">הסרת שיער בלייזר</Link>,{" "}
+          <Link href="/products/rf/" className="font-semibold text-gold-dark hover:underline">טיפולי RF לפנים</Link>{" "}
+          ו<Link href="/category/injectables/" className="font-semibold text-gold-dark hover:underline">הזרקות אסתטיות</Link> – כל טיפולי היופי במקום אחד ביבנה.
+        </p>
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {categories.map((c) => (
             <Link
@@ -323,6 +343,12 @@ export default function Home() {
             />
           </div>
         </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="mx-auto max-w-6xl px-4 py-16">
+        <Faq items={seo.homeFaq} title="שאלות נפוצות על טיפולי יופי ואסתטיקה ביבנה" />
+        <JsonLd data={faqLd(seo.homeFaq)} />
       </section>
 
       {/* LEAD FORM */}
