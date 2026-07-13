@@ -71,3 +71,28 @@ export type Site = {
   social: { facebook: string; instagram: string };
   certifications: string[];
 };
+
+/* ---- CRO additive extensions (appended; do not modify types above) ---- */
+
+// Time-limited launch offer shown in the dismissible LaunchBanner.
+export type LaunchOffer = {
+  text: string;
+  spotsLeft: number;
+  // ISO date (YYYY-MM-DD) the offer ends at — drives the countdown.
+  endsAt: string;
+};
+
+// A single before/after comparison pair for BeforeAfterGallery.
+export type BeforeAfterPair = {
+  before: string;
+  after: string;
+  label: string;
+};
+
+// Homepage plus the optional CRO keys added to homepage.json. Consumers cast
+// `homepage as HomepageCro` at the point of use so the base Homepage type and
+// data.ts stay untouched.
+export type HomepageCro = Homepage & {
+  launchOffer?: LaunchOffer;
+  beforeAfter?: BeforeAfterPair[];
+};

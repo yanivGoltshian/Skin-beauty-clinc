@@ -96,5 +96,27 @@
       "/images/treatments/prp.jpg",
       "/images/treatments/glow-facial.jpg"
     ]
-  }
+  },
+  "launchOffer": {
+    "text": "מבצעי השקה לרגל פתיחת הקליניקה ביבנה",
+    "spotsLeft": 7,
+    "endsAt": "2026-08-31"
+  },
+  "beforeAfter": [
+    {
+      "before": "/images/gallery/work-lips-2.jpg",
+      "after": "/images/gallery/work-lips-1.jpg",
+      "label": "מילוי שפתיים · תמונת הדגמה (להחלפה)"
+    },
+    {
+      "before": "/images/gallery/work-lips-4.jpg",
+      "after": "/images/gallery/work-jawline.jpg",
+      "label": "עיצוב קו לסת · תמונת הדגמה (להחלפה)"
+    },
+    {
+      "before": "/images/gallery/work-lips-5.jpg",
+      "after": "/images/gallery/work-lips-3.jpg",
+      "label": "טיפול פנים · תמונת הדגמה (להחלפה)"
+    }
+  ]
 }
