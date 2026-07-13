@@ -5,6 +5,8 @@ import { site } from "@/lib/data";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppFab from "@/components/WhatsAppFab";
+import StickyCtaBar from "@/components/StickyCtaBar";
+import LaunchBanner from "@/components/LaunchBanner";
 import JsonLd from "@/components/JsonLd";
 import { siteGraph } from "@/lib/structured-data";
 import { seo, OG_IMAGE, absoluteUrl } from "@/lib/seo";
@@ -78,9 +80,11 @@ export default function RootLayout({
       <body className={`${heebo.variable} ${frank.variable} antialiased`}>
         <JsonLd data={siteGraph()} />
         <Header />
+        <LaunchBanner />
         <main className="min-h-screen">{children}</main>
         <Footer />
         <WhatsAppFab />
+        <StickyCtaBar />
       </body>
     </html>
   );

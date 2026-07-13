@@ -10,6 +10,9 @@ import Faq from "@/components/Faq";
 import JsonLd from "@/components/JsonLd";
 import { faqLd } from "@/lib/structured-data";
 import { seo, pageMetadata } from "@/lib/seo";
+import BeforeAfterGallery from "@/components/BeforeAfterGallery";
+import NavButtons from "@/components/NavButtons";
+import type { HomepageCro } from "@/lib/types";
 
 export const metadata = pageMetadata({
   title: seo.pages.home.title,
@@ -75,9 +78,9 @@ export default function Home() {
             <p className="mt-4 font-display text-xl sm:text-2xl font-bold text-gold">{homepage.hero.title}</p>
             <p className="mt-4 text-lg text-white/80 leading-relaxed">{homepage.hero.subtitle}</p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link href={homepage.hero.ctaPrimary.href} className="rounded-full bg-eco px-7 py-3.5 font-semibold text-white shadow-lg hover:bg-eco-dark transition">
-                {homepage.hero.ctaPrimary.label}
-              </Link>
+              <a href="#lead" className="rounded-full bg-eco px-7 py-3.5 font-semibold text-white shadow-lg hover:bg-eco-dark transition">
+                קבעי בדיקת התאמה חינם
+              </a>
               <Link href={homepage.hero.ctaSecondary.href} className="rounded-full bg-white/10 px-7 py-3.5 font-semibold text-white ring-1 ring-white/30 hover:bg-white/20 transition">
                 {homepage.hero.ctaSecondary.label}
               </Link>
@@ -223,6 +226,26 @@ export default function Home() {
         </div>
       </section>
 
+      {/* MID CTA BAND */}
+      <section className="bg-gradient-to-l from-brand-dark via-brand to-brand-dark text-white">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-center gap-4 px-4 py-8 text-center sm:flex-row sm:gap-6">
+          <p className="font-display text-xl font-black sm:text-2xl">מוכנות להתחיל? קבעי בדיקת התאמה חינם עם הצוות שלנו</p>
+          <div className="flex flex-wrap justify-center gap-3">
+            <a href="#lead" className="rounded-full bg-white px-6 py-3 font-semibold text-brand-dark shadow-sm transition hover:bg-cream">
+              קבעי בדיקת התאמה חינם
+            </a>
+            <a
+              href={whatsappLink("היי, אשמח לקבוע תור / בדיקת התאמה")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full bg-eco px-6 py-3 font-semibold text-white ring-1 ring-white/30 transition hover:bg-eco-dark"
+            >
+              וואטסאפ
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* NYLON ADVANTAGES + VIDEO */}
       <section className="mx-auto max-w-6xl px-4 py-16">
         <div className="grid gap-10 lg:grid-cols-2 items-center">
@@ -302,6 +325,17 @@ export default function Home() {
               </div>
             ))}
           </div>
+
+          {/* interactive before/after comparison */}
+          <div className="mt-14">
+            <div className="text-center max-w-2xl mx-auto">
+              <h3 className="font-display text-2xl sm:text-3xl font-black">השוואת לפני ואחרי</h3>
+              <p className="mt-2 text-muted">גררו את הידית כדי לחשוף את התוצאה.</p>
+            </div>
+            <div className="mt-8">
+              <BeforeAfterGallery pairs={(homepage as HomepageCro).beforeAfter ?? []} />
+            </div>
+          </div>
         </div>
       </section>
 
@@ -333,14 +367,17 @@ export default function Home() {
               <Link href="/contact/" className="rounded-full bg-white/10 px-6 py-3 font-semibold ring-1 ring-white/30 hover:bg-white/20 transition">עמוד צור קשר</Link>
             </div>
           </div>
-          <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-xl ring-1 ring-white/15">
-            <iframe
-              className="absolute inset-0 h-full w-full"
-              src="https://www.google.com/maps?q=הקישון%205%20יבנה&output=embed"
-              title="מפה – הקישון 5, יבנה"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
+          <div>
+            <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-xl ring-1 ring-white/15">
+              <iframe
+                className="absolute inset-0 h-full w-full"
+                src="https://www.google.com/maps?q=הקישון%205%20יבנה&output=embed"
+                title="מפה – הקישון 5, יבנה"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+            <NavButtons className="mt-4 justify-center lg:justify-start" />
           </div>
         </div>
       </section>
@@ -352,10 +389,11 @@ export default function Home() {
       </section>
 
       {/* LEAD FORM */}
-      <section className="mx-auto max-w-3xl px-4 py-16">
+      <section id="lead" className="mx-auto max-w-3xl px-4 py-16 scroll-mt-24">
         <div className="rounded-3xl border border-border bg-surface p-6 sm:p-10 card-elegant">
           <div className="text-center">
-            <h2 className="font-display text-3xl font-black">לקביעת תור / בדיקת התאמה</h2>
+            <span className="inline-block rounded-full bg-eco/10 px-4 py-1.5 text-sm font-bold text-eco-dark">קבעי בדיקת התאמה חינם</span>
+            <h2 className="mt-3 font-display text-3xl font-black">לקביעת תור / בדיקת התאמה</h2>
             <p className="mt-2 text-muted">השאירו פרטים ונחזור אליכם בהקדם – או שלחו ישירות בוואטסאפ.</p>
           </div>
           <div className="mt-8">
