@@ -124,7 +124,11 @@ function ghHeaders(): Record<string, string> {
     Authorization: `Bearer ${token}`,
     Accept: "application/vnd.github+json",
     "X-GitHub-Api-Version": "2022-11-28",
-    "Cache-Control": "no-cache",
+    // No "Cache-Control" header here: it is NOT in GitHub's CORS
+    // Access-Control-Allow-Headers list, so sending it makes the browser
+    // block every api.github.com request in the preflight (ERR_FAILED).
+    // Cache-busting is handled by the ?t=Date.now() query param and the
+    // fetch `cache: "no-store"` request option instead.
   };
 }
 

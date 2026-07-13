@@ -281,18 +281,9 @@ function AdminInner() {
     );
   }
 
-  if (phase === "loading" || !db || !baseline) {
-    return (
-      <Shell backend={backend}>
-        <div className="grid min-h-[50vh] place-items-center text-muted">
-          <div className="flex items-center gap-2 text-sm">
-            <Spinner /> טוען את תוכן האתר…
-          </div>
-        </div>
-      </Shell>
-    );
-  }
-
+  // Error must be checked BEFORE the loading guard below: on a failed load
+  // `db`/`baseline` stay null, so a `!db` check would otherwise keep showing
+  // the spinner forever and the error screen would be unreachable.
   if (phase === "error") {
     return (
       <Shell backend={backend}>
@@ -302,6 +293,18 @@ function AdminInner() {
           <div className="mt-4 flex justify-center gap-2">
             <Button variant="ghost" onClick={() => void loadAll()}>נסי שוב</Button>
             <Button variant="danger" onClick={() => { clearToken(); void init(); }}>החליפי טוקן</Button>
+          </div>
+        </div>
+      </Shell>
+    );
+  }
+
+  if (phase === "loading" || !db || !baseline) {
+    return (
+      <Shell backend={backend}>
+        <div className="grid min-h-[50vh] place-items-center text-muted">
+          <div className="flex items-center gap-2 text-sm">
+            <Spinner /> טוען את תוכן האתר…
           </div>
         </div>
       </Shell>
