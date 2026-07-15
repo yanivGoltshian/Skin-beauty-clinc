@@ -19,5 +19,15 @@
     "בדיקת התאמה לפני כל טיפול",
     "11 חדרי טיפול מאובזרים",
     "מחירי השקה אטרקטיביים"
-  ]
+  ],
+  "legal": {
+    "accessibilityCoordinator": {
+      "name": "סקין ביוטי קליניק",
+      "phone": "054-675-5521",
+      "email": "info@skinbeautyclinic.co.il"
+    },
+    "privacyEmail": "info@skinbeautyclinic.co.il",
+    "accessibilityUpdated": "אוגוסט 2025",
+    "privacyUpdated": "אוגוסט 2025"
+  }
 }

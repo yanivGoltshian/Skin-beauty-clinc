@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState } from "react";
+import Link from "next/link";
 import { products, site, whatsappLink } from "@/lib/data";
 
 type LeadFormProps = {
@@ -18,6 +19,14 @@ export default function LeadForm({ defaultProduct, variant = "full" }: LeadFormP
     message: "",
   });
   const [showMore, setShowMore] = useState(false);
+  const [privacyConsent, setPrivacyConsent] = useState(false);
+  const [marketingConsent, setMarketingConsent] = useState(false);
+  const [consentError, setConsentError] = useState(false);
+
+  const uid = useId();
+  const privacyId = `privacy-consent-${uid}`;
+  const marketingId = `marketing-consent-${uid}`;
+  const errorId = `privacy-consent-error-${uid}`;
 
   function buildText() {
     const lines = [
@@ -28,6 +37,10 @@ export default function LeadForm({ defaultProduct, variant = "full" }: LeadFormP
       form.quantity && `מועד מועדף: ${form.quantity}`,
       form.branded && `מטרת הפנייה: ${form.branded}`,
       form.message && `הערות: ${form.message}`,
+      "———",
+      "אישור מדיניות פרטיות: כן",
+      `הסכמה לדיוור פרסומי: ${marketingConsent ? "כן" : "לא"}`,
+      `תאריך ושעה: ${new Date().toLocaleString("he-IL", { timeZone: "Asia/Jerusalem" })}`,
     ].filter(Boolean);
     return lines.join("\n");
   }
@@ -40,8 +53,65 @@ export default function LeadForm({ defaultProduct, variant = "full" }: LeadFormP
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!privacyConsent) {
+      setConsentError(true);
+      return;
+    }
     window.open(whatsappLink(buildText()), "_blank");
   };
+
+  const consentFields = (
+    <div className="grid gap-3">
+      <div className="flex items-start gap-2.5">
+        <input
+          id={privacyId}
+          type="checkbox"
+          checked={privacyConsent}
+          onChange={(e) => {
+            setPrivacyConsent(e.target.checked);
+            if (e.target.checked) setConsentError(false);
+          }}
+          required
+          aria-required="true"
+          aria-invalid={consentError || undefined}
+          aria-describedby={consentError ? errorId : undefined}
+          aria-label="אישור מדיניות פרטיות (חובה)"
+          className="mt-0.5 h-5 w-5 shrink-0 accent-brand"
+        />
+        <span className="text-sm text-muted leading-snug">
+          <label htmlFor={privacyId} className="cursor-pointer">
+            קראתי ואני מאשר/ת את{" "}
+          </label>
+          <Link
+            href="/privacy/"
+            target="_blank"
+            className="font-semibold text-brand underline underline-offset-2 hover:text-brand-dark"
+          >
+            מדיניות הפרטיות
+          </Link>
+          <span aria-hidden="true" className="text-eco-dark"> *</span>
+        </span>
+      </div>
+      {consentError && (
+        <p id={errorId} role="alert" className="text-sm font-semibold text-eco-dark">
+          יש לאשר את מדיניות הפרטיות כדי לשלוח את הטופס.
+        </p>
+      )}
+      <div className="flex items-start gap-2.5">
+        <input
+          id={marketingId}
+          type="checkbox"
+          checked={marketingConsent}
+          onChange={(e) => setMarketingConsent(e.target.checked)}
+          aria-label="הסכמה לקבלת דיוור פרסומי (רשות)"
+          className="mt-0.5 h-5 w-5 shrink-0 accent-brand"
+        />
+        <label htmlFor={marketingId} className="text-sm text-muted leading-snug cursor-pointer">
+          אני מאשר/ת קבלת דיוור פרסומי (מבצעים, עדכונים והטבות) בהודעות SMS/וואטסאפ/דוא״ל. ניתן להסיר בכל עת.
+        </label>
+      </div>
+    </div>
+  );
 
   // ---- COMPACT: three fields + submit in a tight inline row (near hero) ----
   if (variant === "compact") {
@@ -64,6 +134,7 @@ export default function LeadForm({ defaultProduct, variant = "full" }: LeadFormP
             קבעי בדיקת התאמה חינם
           </button>
         </div>
+        {consentFields}
         <p className="text-xs text-muted">הפרטים נשלחים ישירות אלינו לוואטסאפ – ללא שמירה במאגר.</p>
       </form>
     );
@@ -140,6 +211,8 @@ export default function LeadForm({ defaultProduct, variant = "full" }: LeadFormP
           </div>
         </div>
       )}
+
+      {consentFields}
 
       <div className="flex flex-col sm:flex-row gap-3">
         <button

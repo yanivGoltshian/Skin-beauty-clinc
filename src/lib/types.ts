@@ -96,3 +96,24 @@ export type HomepageCro = Homepage & {
   launchOffer?: LaunchOffer;
   beforeAfter?: BeforeAfterPair[];
 };
+
+/* ---- Legal / compliance additive extensions (appended) ---- */
+
+// Accessibility coordinator contact block (IS 5568). Defaults live in site.json
+// under `legal`; owner-editable. Phone is the clinic's real number.
+export type AccessibilityCoordinator = {
+  name: string;
+  phone: string;
+  email: string;
+};
+
+// Optional legal metadata added to site.json. Additive only — consumers cast
+// `site as SiteWithLegal` at the point of use so the base Site type stays intact.
+export type SiteLegal = {
+  accessibilityCoordinator?: AccessibilityCoordinator;
+  privacyEmail?: string;
+  accessibilityUpdated?: string;
+  privacyUpdated?: string;
+};
+
+export type SiteWithLegal = Site & { legal?: SiteLegal };

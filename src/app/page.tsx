@@ -345,7 +345,7 @@ export default function Home() {
         <p className="mt-4 font-display text-xl sm:text-2xl text-foreground/90 leading-relaxed">
           {homepage.aboutTeaser.text}
         </p>
-        <Link href={homepage.aboutTeaser.href} className="mt-6 inline-flex rounded-full border border-gold/50 px-7 py-3 font-semibold text-gold-dark hover:bg-gold hover:text-white transition">
+        <Link href={homepage.aboutTeaser.href} className="mt-6 inline-flex rounded-full border border-gold/50 px-7 py-3 font-semibold text-gold-dark hover:bg-gold-dark hover:text-white transition">
           קראו עוד עלינו ←
         </Link>
       </section>

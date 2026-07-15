@@ -49,6 +49,8 @@ export default function Footer() {
               <li><Link href="/branded/" className="hover:text-white transition">מבצעי השקה</Link></li>
               <li><Link href="/about/" className="hover:text-white transition">אודות</Link></li>
               <li><Link href="/contact/" className="hover:text-white transition">צרו קשר</Link></li>
+              <li><Link href="/accessibility/" className="hover:text-white transition">הצהרת נגישות</Link></li>
+              <li><Link href="/privacy/" className="hover:text-white transition">מדיניות פרטיות</Link></li>
             </ul>
           </div>
 
@@ -56,9 +58,9 @@ export default function Footer() {
           <div>
             <h4 className="font-display text-base font-bold text-white mb-4">יצירת קשר</h4>
             <ul className="space-y-2.5 text-sm">
-              <li><span className="text-white/45">טלפון:</span> <a href={telLink(site.phone)} className="hover:text-white transition">{site.phone}</a></li>
-              <li className="text-white/60"><span className="text-white/45">כתובת:</span> {site.address}, {site.city}</li>
-              <li className="text-white/60"><span className="text-white/45">שעות:</span> {site.hours}</li>
+              <li><span className="text-white/60">טלפון:</span> <a href={telLink(site.phone)} className="hover:text-white transition">{site.phone}</a></li>
+              <li className="text-white/60"><span className="text-white/60">כתובת:</span> {site.address}, {site.city}</li>
+              <li className="text-white/60"><span className="text-white/60">שעות:</span> {site.hours}</li>
               <li>
                 <a href={whatsappLink("היי, אשמח לקבוע תור / בדיקת התאמה")} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex items-center gap-2 rounded-full bg-eco px-4 py-2 text-sm font-semibold text-white hover:brightness-110 transition">
                   וואטסאפ
@@ -69,7 +71,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 h-px bg-white/10" />
-        <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/45">
+        <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/60">
           <p>© {new Date().getFullYear()} {site.name}. כל הזכויות שמורות.</p>
           <p className="flex flex-wrap gap-2 justify-center">
             {site.certifications.map((c) => (

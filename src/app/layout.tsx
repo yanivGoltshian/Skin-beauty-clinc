@@ -6,6 +6,9 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppFab from "@/components/WhatsAppFab";
 import StickyCtaBar from "@/components/StickyCtaBar";
+import SkipLink from "@/components/SkipLink";
+import AccessibilityWidget from "@/components/AccessibilityWidget";
+import CookieNotice from "@/components/CookieNotice";
 import LaunchBanner from "@/components/LaunchBanner";
 import JsonLd from "@/components/JsonLd";
 import { siteGraph } from "@/lib/structured-data";
@@ -66,7 +69,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#b0855f",
+  themeColor: "#8b6a4a",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -78,13 +81,16 @@ export default function RootLayout({
   return (
     <html lang="he" dir="rtl">
       <body className={`${heebo.variable} ${frank.variable} antialiased`}>
+        <SkipLink />
         <JsonLd data={siteGraph()} />
         <Header />
         <LaunchBanner />
-        <main className="min-h-screen">{children}</main>
+        <main id="content" tabIndex={-1} className="min-h-screen">{children}</main>
         <Footer />
         <WhatsAppFab />
         <StickyCtaBar />
+        <AccessibilityWidget />
+        <CookieNotice />
       </body>
     </html>
   );
